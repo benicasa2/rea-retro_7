@@ -6,11 +6,11 @@ Esta versão deriva de morluto/rea, commit base
 `5d6b8a0ab693c03ab85cf0807d40bedf021e76d8` (6.7.0).
 O 6502 já era suportado; esta extensão adiciona Motorola 6809 e Zilog Z80.
 
-| CPU | Arquitetura REA | Linguagem Ghidra | Espaço |
-| --- | --- | --- | --- |
-| MOS 6502 | `6502` | `6502:LE:16:default` | `RAM` |
-| Motorola 6809 | `6809` | `6809:BE:16:default` | `RAM` |
-| Zilog Z80 | `z80` | `z80:LE:16:default` | `ram` |
+| CPU           | Arquitetura REA | Linguagem Ghidra     | Espaço |
+| ------------- | --------------- | -------------------- | ------ |
+| MOS 6502      | `6502`          | `6502:LE:16:default` | `RAM`  |
+| Motorola 6809 | `6809`          | `6809:BE:16:default` | `RAM`  |
+| Zilog Z80     | `z80`           | `z80:LE:16:default`  | `ram`  |
 
 Todas usam o compiler spec `default` e um espaço de endereços de 16 bits.
 O arquivo bruto completo deve caber no intervalo $0000–$FFFF. Endereços

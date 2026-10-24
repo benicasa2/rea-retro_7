@@ -3,15 +3,15 @@
 Versão derivada de [morluto/rea](https://github.com/morluto/rea), baseada no REA 6.7.0,
 com suporte explícito a **6502, 65C02, 65816, Intel 8080, Motorola 6800, Motorola 6809 e Z80**.
 
-| Arquitetura | Opção CLI/MCP | Espaço de endereços |
-| --- | --- | --- |
-| MOS 6502 | `6502` | 16 bits |
-| CMOS 65C02 | `65c02` | 16 bits |
-| WDC 65816 | `65816` | 24 bits |
-| Intel 8080 | `8080` | 16 bits |
-| Motorola 6800 | `6800` | 16 bits |
-| Motorola 6809 | `6809` | 16 bits |
-| Zilog Z80 | `z80` | 16 bits |
+| Arquitetura   | Opção CLI/MCP | Espaço de endereços |
+| ------------- | ------------- | ------------------- |
+| MOS 6502      | `6502`        | 16 bits             |
+| CMOS 65C02    | `65c02`       | 16 bits             |
+| WDC 65816     | `65816`       | 24 bits             |
+| Intel 8080    | `8080`        | 16 bits             |
+| Motorola 6800 | `6800`        | 16 bits             |
+| Motorola 6809 | `6809`        | 16 bits             |
+| Zilog Z80     | `z80`         | 16 bits             |
 
 Veja [configuração, módulos e testes da versão atual](docs/retro-additional-cpus.md).
 Os módulos adicionais, seus fontes e licenças estão em

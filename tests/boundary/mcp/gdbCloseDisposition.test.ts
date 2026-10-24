@@ -37,7 +37,7 @@ createInterface({ input: process.stdin }).on('line', line => {
   if (disposition) live = false;
   const result = command === '-list-thread-groups --recurse 1'
     ? (live ? 'done,groups=[{id="i1",type="process",pid="4242"}]' : 'done,groups=[]')
-    : disposition || command === '-gdb-set auto-load off' || command === '-gdb-exit'
+    : disposition || command === '-gdb-show mi-async' || command === '-gdb-set auto-load off' || command === '-gdb-exit'
       ? 'done' : 'error,msg="Unmodeled fixture command"';
   process.stdout.write(token + '^' + result + '\\n(gdb)\\n', () => {
     if (line.includes('-gdb-exit')) process.exit(0);

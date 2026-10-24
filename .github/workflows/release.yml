@@ -35,7 +35,7 @@ concurrency:
 jobs:
   release-proposal:
     name: Update release proposal
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && (github.repository == 'morluto/rea' || vars.REA_ENABLE_RELEASE_PROPOSALS == 'true')
     runs-on: ubuntu-latest
     permissions:
       contents: write

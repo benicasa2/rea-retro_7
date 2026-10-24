@@ -190,7 +190,9 @@ it("keeps unsupported CUDA flag layouts unknown while retaining raw header evide
   );
   const inventory = await inspect(
     cubinFixture({ osAbi: 0x41, flags: 0x06016402 }),
-    { analysis: "inventory" },
+    {
+      analysis: "inventory",
+    },
   );
   if (!inventory.ok) throw inventory.error;
   expect(inventory.value.coverage.discovery).toBe("partial");
@@ -429,7 +431,7 @@ it.each([
   ]);
 });
 it.each([
-  ["parameter", ".u64 output", ".u64 .ptr .global output"],
+  ["parameter", ".u64 output", ".u64 .vendor_specific output"],
   ["shared", "scratch[32]", "scratch[]"],
 ] as const)(
   "marks unknown PTX %s declarations partial while retaining known facts",

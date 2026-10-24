@@ -2,12 +2,12 @@
 
 These additions preserve the existing 6502, Z80 and 6809 lanes.
 
-| CLI/MCP architecture | Ghidra language | Default space | Mapping width |
-| --- | --- | --- | --- |
-| `65c02` | `65C02:LE:16:default` | `RAM` | 16 bits |
-| `65816` | `65816:LE:16:default` | `bus` | 24 bits |
-| `8080` | `8080:LE:16:default` | `ram` | 16 bits |
-| `6800` | `MC6800:BE:16:default` | `RAM` | 16 bits |
+| CLI/MCP architecture | Ghidra language        | Default space | Mapping width |
+| -------------------- | ---------------------- | ------------- | ------------- |
+| `65c02`              | `65C02:LE:16:default`  | `RAM`         | 16 bits       |
+| `65816`              | `65816:LE:16:default`  | `bus`         | 24 bits       |
+| `8080`               | `8080:LE:16:default`   | `ram`         | 16 bits       |
+| `6800`               | `MC6800:BE:16:default` | `RAM`         | 16 bits       |
 
 The 65816 module's historical language ID says 16, but its `bus` address space
 is 24-bit. REA enforces the actual 24-bit extent, including banked load addresses.

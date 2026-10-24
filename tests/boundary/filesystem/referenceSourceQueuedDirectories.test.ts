@@ -22,7 +22,7 @@ const directoryHandle = (items: readonly (string | Error | null)[]): Dir => {
       if (item instanceof Error) throw item;
       return item === null || item === undefined
         ? null
-        : ({ name: item } as Dirent);
+        : ({ name: Buffer.from(item) } as unknown as Dirent);
     },
     async close() {},
   } as unknown as Dir;
@@ -44,7 +44,9 @@ it.skipIf(process.platform === "win32")(
 
     const readFailure = Object.assign(
       new Error("injected directory read failure"),
-      { code: "EIO" },
+      {
+        code: "EIO",
+      },
     );
     opendirMock.mockImplementation(async (path: string) => {
       if (path === root) return directoryHandle(["container", null]);

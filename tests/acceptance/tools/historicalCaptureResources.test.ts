@@ -110,13 +110,11 @@ it.skipIf(process.versions.bun !== undefined && jobLimit === null)(
       "Set REA_CAPTURE_DECODER_OLD_GENERATION_MIB in the environment that starts REA",
     );
     expect(remediation).not.toContain("no runtime override");
-    const failed: unknown = await execute(process.execPath, [
-      cli,
-      "inspect-web-network-capture",
-      path,
-      "har",
-      "--json",
-    ]).then(
+    const failed: unknown = await execute(
+      process.execPath,
+      [cli, "inspect-web-network-capture", path, "har", "--json"],
+      { maxBuffer: 16 * 1024 * 1024 },
+    ).then(
       () => undefined,
       (cause: unknown) => cause,
     );
