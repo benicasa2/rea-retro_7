@@ -113,7 +113,13 @@ it.skipIf(process.versions.bun !== undefined && jobLimit === null)(
     const failed: unknown = await execute(
       process.execPath,
       [cli, "inspect-web-network-capture", path, "har", "--json"],
-      { maxBuffer: 16 * 1024 * 1024 },
+      {
+        maxBuffer: 16 * 1024 * 1024,
+        // The lean CLI can fit this capture in the default heap on Linux.
+        // Select an explicit smaller heap to exercise actual exhaustion,
+        // rather than depending on incidental decoder allocation overhead.
+        env: { ...process.env, REA_CAPTURE_DECODER_OLD_GENERATION_MIB: "32" },
+      },
     ).then(
       () => undefined,
       (cause: unknown) => cause,
@@ -125,7 +131,7 @@ it.skipIf(process.versions.bun !== undefined && jobLimit === null)(
         : "";
     expect(JSON.parse(stdout)).toMatchObject({ code: "resource_constraint" });
     expect(stdout).toContain("REA_CAPTURE_DECODER_OLD_GENERATION_MIB");
-    expect(stdout).toContain("source default");
+    expect(stdout).toContain("value is 32 MiB (source setting;");
     expect(stdout).not.toContain("no runtime override");
     const small = join(root, "small.har");
     await writeFile(small, capture(2));

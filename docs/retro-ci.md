@@ -28,8 +28,11 @@ revise antes os destinos de publicação. O CI continua ativo.
   extensão desconhecida, preservando as verificações de fatos parciais.
 - Diretórios: o simulador devolve nomes em bytes, como o leitor solicita.
 - GDB: o simulador responde à consulta de conclusão `-gdb-show mi-async`.
-- HAR: a captura do teste CLI comporta os diagnósticos de memória, sem alterar
-  os limites do decodificador nem aceitar falha por buffer como sucesso.
+- HAR: o teste CLI seleciona explicitamente um heap de 32 MiB para provocar
+  esgotamento real de forma estável. A CLI mais enxuta pode processar a mesma
+  captura com o heap padrão no Linux. O teste também comporta os diagnósticos
+  sem aceitar falha de buffer como sucesso; o limite padrão do produto permanece
+  inalterado. O caminho MCP continua verificando a configuração padrão.
 
 ## Verificação com Ghidra real
 

@@ -109,7 +109,9 @@ it("keeps main pushes proposal-only and gates merged-release automation", async 
     branches: ["main"],
   });
   const proposal = workflow.jobs["release-proposal"];
-  expect(proposal.if).toBe("github.event_name == 'push'");
+  expect(proposal.if).toBe(
+    "github.event_name == 'push' && (github.repository == 'morluto/rea' || vars.REA_ENABLE_RELEASE_PROPOSALS == 'true')",
+  );
   const action = proposal.steps.find((step) =>
     step.uses?.startsWith("googleapis/release-please-action@"),
   );
