@@ -30,3 +30,9 @@ revise antes os destinos de publicação. O CI continua ativo.
 - GDB: o simulador responde à consulta de conclusão `-gdb-show mi-async`.
 - HAR: a captura do teste CLI comporta os diagnósticos de memória, sem alterar
   os limites do decodificador nem aceitar falha por buffer como sucesso.
+
+## Verificação com Ghidra real
+
+`npm run verify:ghidra:retro` executa os exemplos das CPUs adicionais.
+Configure `GHIDRA_INSTALL_DIR` e instale os módulos descritos no guia
+`retro-additional-cpus.md` antes de executar esse comando.
