@@ -1,4 +1,5 @@
 import { expect, it } from "vitest";
+import * as t from "@babel/types";
 import { parseJavaScriptSource } from "./javascriptSourceParser.js";
 import { indexJavaScriptBindingsWithReceiversSteps } from "./javascriptSemanticAnalysis.js";
 import {
@@ -29,6 +30,46 @@ const analyze = (source: string, budget?: number) => {
   });
   return complete(scan.finishSteps());
 };
+
+it("scans an object's route fields once for repeated path keys", () => {
+  const file = parseJavaScriptSource(
+    `({ ${Array.from({ length: 128 }, (_, i) => `path: "p${String(i)}"`).join(", ")} });`,
+  );
+  if (file === null) throw new Error("fixture must parse");
+  const statement = file.program.body[0];
+  if (
+    !t.isExpressionStatement(statement) ||
+    !t.isObjectExpression(statement.expression)
+  )
+    throw new Error("fixture must contain an object");
+  const object = statement.expression;
+  const index = complete(
+    indexJavaScriptBindingsWithReceiversSteps(file.program),
+  );
+  const routes: string[] = [];
+  const scan = complete(
+    JavaScriptRouteScan.createSteps(file, index, ({ value }) =>
+      routes.push(value),
+    ),
+  );
+  const properties = object.properties;
+  let iterations = 0;
+  // Count the owning scanner's work directly, independently of host speed or coverage.
+  Object.defineProperty(properties, Symbol.iterator, {
+    configurable: true,
+    value: function* () {
+      iterations += 1;
+      for (let i = 0; i < properties.length; i++) yield properties[i]!;
+    },
+  });
+  scan.inspect(object, statement);
+  for (let i = 0; i < properties.length; i++)
+    scan.inspect(properties[i]!, object);
+  expect(routes).toEqual(
+    Array.from({ length: 128 }, (_, i) => `p${String(i)}`),
+  );
+  expect(iterations).toBe(1);
+});
 
 it("joins router children and preserves each segment's source", () => {
   const facts = analyze(
